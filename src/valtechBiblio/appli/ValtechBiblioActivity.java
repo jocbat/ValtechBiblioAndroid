@@ -23,12 +23,12 @@ public class ValtechBiblioActivity extends Activity
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.main);
     	ListView listView = (ListView) findViewById(R.id.mylist);
-    	String[] values = new String[] { "Le rouge et le noir", "Alice au pays des mervailles", "Astérix chez les Bretons",
+    	String[] values = new String[] { "Le rouge et le noir", "Alice au pays des merveilles", "Astérix chez les Bretons",
     		"Ouioui fait de l'Android", "Superman", "Ma vie mon oeuvre", "Guerre et paix", "Les Bidochons",
     		"Linux", "OS/2" };
     	
     	final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-    			android.R.layout.simple_list_item_1, android.R.id.text1, values);
+    			R.layout.rowlayout, R.id.entry, values);
 
     		// Assign adapter to ListView
     		listView.setAdapter(adapter);
