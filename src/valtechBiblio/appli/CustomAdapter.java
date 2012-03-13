@@ -17,6 +17,7 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class CustomAdapter extends ArrayAdapter<Book>
 {
 	private final Context context;
 	private final List<Book> values;
+	Bitmap image;
 
 	public CustomAdapter(Context context, List<Book> books) {
 		super(context, R.layout.rowlayout, books);
@@ -52,25 +54,15 @@ public class CustomAdapter extends ArrayAdapter<Book>
 		textViewOk.setText(Integer.toString(currentBook.getNumberOfPages()));
 		textViewCancel.setText("Nombre d'auteurs : " + Integer.toString(currentBook.getAuthor().size()));
 		
-		Bitmap bm = null; 
-        try { 
-            URL aURL = new URL("http://icons-search.com/img/icons-land/IconsLandVistaHalloweenEmoticonsDemo.zip/IconsLandVistaHalloweenEmoticonsDemo-PNG-16x16-Wink.png-16x16.png"); 
-            URLConnection conn = aURL.openConnection(); 
-            conn.connect(); 
-            InputStream is = conn.getInputStream(); 
-            BufferedInputStream bis = new BufferedInputStream(is); 
-            bm = BitmapFactory.decodeStream(bis); 
-            bis.close(); 
-            is.close(); 
-       } catch (IOException e) { 
-           
-       } 
 		
-		
+       
+		String[] urls = new String[1];
+		urls[0] = "http://icons-search.com/img/icons-land/IconsLandVistaHalloweenEmoticonsDemo.zip/IconsLandVistaHalloweenEmoticonsDemo-PNG-16x16-Wink.png-16x16.png";
+		new RetreiveImageTask().execute(urls);
 		
 		
 		//Uri uri = Uri.parse("http://icons-search.com/img/icons-land/IconsLandVistaHalloweenEmoticonsDemo.zip/IconsLandVistaHalloweenEmoticonsDemo-PNG-16x16-Wink.png-16x16.png");
-		imageView.setImageBitmap(bm);
+		imageView.setImageBitmap(image);
 		
 		//reservedImageContainer.setBackgroundDrawable(background);
 		if(!currentBook.isReserved())
@@ -85,4 +77,36 @@ public class CustomAdapter extends ArrayAdapter<Book>
 		return rowView;
 	}
 
+
+
+class RetreiveImageTask extends AsyncTask<String, Void, Bitmap> {
+
+    private Exception exception;
+
+    protected Bitmap doInBackground(String... urls) {
+    	Bitmap bm = null;  
+    	try 
+    	{ 
+             URL aURL = new URL(urls[0]); 
+             URLConnection conn = aURL.openConnection(); 
+             conn.connect(); 
+             InputStream is = conn.getInputStream(); 
+             BufferedInputStream bis = new BufferedInputStream(is); 
+             bm = BitmapFactory.decodeStream(bis); 
+             bis.close(); 
+             is.close(); 
+        } catch (IOException e) { 
+            
+        }
+		return bm; 
+    }
+
+    protected void onPostExecute(Bitmap myImage) {
+        // TODO: check this.exception 
+        // TODO: do something with the feed
+    	image = myImage;
+    }
+
+	
+ }
 }
