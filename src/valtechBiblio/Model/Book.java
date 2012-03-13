@@ -23,6 +23,9 @@ public class Book
 	// image de la couverture du livre
 	private Bitmap picture;
 	
+	// est il reservé par quelqu'un ?
+	private boolean isReserved;
+	
 	public String getTitle() {
 		return title;
 	}
@@ -53,6 +56,12 @@ public class Book
 	}
 	public void setPicture(Bitmap picture) {
 		this.picture = picture;
+	}
+	public boolean isReserved() {
+		return isReserved;
+	}
+	public void setReserved(boolean isReserved) {
+		this.isReserved = isReserved;
 	}
 	
 	

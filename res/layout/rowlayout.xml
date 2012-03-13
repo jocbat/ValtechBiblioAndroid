@@ -3,30 +3,52 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     
-    <ImageView
-        android:id="@+id/label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher" >
-    </ImageView>
+    <RelativeLayout 
+   android:id="@+id/imagecontainer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingLeft="1dp"
+    android:paddingRight="1dp"
+    android:paddingTop="1dp"
+    android:paddingBottom="1dp"
+    android:padding="3dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+	    <ImageView
+	        android:id="@+id/label"
+	        android:layout_width="70dp"
+	       
+	        android:layout_height="70dp"
+	        android:src="@drawable/ic_launcher" >
+	    </ImageView>
+    </RelativeLayout>
     
     <TextView
         android:id="@+id/entry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/label"/>
+        android:layout_toRightOf="@+id/imagecontainer"/>
     <TextView
         android:id="@+id/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
          android:layout_below="@id/entry"
-         android:layout_toRightOf="@id/label"
+         android:layout_toRightOf="@+id/imagecontainer"
          />
     <TextView
          android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ok"
-        android:layout_toRightOf="@id/label"
+       
+        android:layout_toRightOf="@+id/imagecontainer"
         />
+   	
+    <!--  <ImageView
+        android:id="@+id/reservedstatus"
+        android:layout_toRightOf="@+id/cancel"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_launcher" 
+        android:layout_alignParentRight="true">
+    </ImageView>-->
 </RelativeLayout>
