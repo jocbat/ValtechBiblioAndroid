@@ -54,13 +54,6 @@ public class CustomAdapter extends ArrayAdapter<Book>
 		textViewOk.setText(Integer.toString(currentBook.getNumberOfPages()));
 		textViewCancel.setText("Nombre d'auteurs : " + Integer.toString(currentBook.getAuthor().size()));
 		
-		
-       
-		String[] urls = new String[1];
-		urls[0] = "http://icons-search.com/img/icons-land/IconsLandVistaHalloweenEmoticonsDemo.zip/IconsLandVistaHalloweenEmoticonsDemo-PNG-16x16-Wink.png-16x16.png";
-		new RetreiveImageTask().execute(urls);
-		
-		
 		//Uri uri = Uri.parse("http://icons-search.com/img/icons-land/IconsLandVistaHalloweenEmoticonsDemo.zip/IconsLandVistaHalloweenEmoticonsDemo-PNG-16x16-Wink.png-16x16.png");
 		imageView.setImageBitmap(image);
 		
@@ -79,34 +72,5 @@ public class CustomAdapter extends ArrayAdapter<Book>
 
 
 
-class RetreiveImageTask extends AsyncTask<String, Void, Bitmap> {
 
-    private Exception exception;
-
-    protected Bitmap doInBackground(String... urls) {
-    	Bitmap bm = null;  
-    	try 
-    	{ 
-             URL aURL = new URL(urls[0]); 
-             URLConnection conn = aURL.openConnection(); 
-             conn.connect(); 
-             InputStream is = conn.getInputStream(); 
-             BufferedInputStream bis = new BufferedInputStream(is); 
-             bm = BitmapFactory.decodeStream(bis); 
-             bis.close(); 
-             is.close(); 
-        } catch (IOException e) { 
-            
-        }
-		return bm; 
-    }
-
-    protected void onPostExecute(Bitmap myImage) {
-        // TODO: check this.exception 
-        // TODO: do something with the feed
-    	image = myImage;
-    }
-
-	
- }
 }
