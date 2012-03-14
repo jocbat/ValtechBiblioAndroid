@@ -39,13 +39,8 @@ public class ValtechBiblioActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
-    	
-		
-		//new RetreiveImageTask().execute(urls);
-		
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.main);
-    	
     	String[] urls = new String[1];
 		urls[0] = "http://i714.photobucket.com/albums/ww145/2shay78/book.png";
 		imView = (ImageView)findViewById(R.id.imview);
@@ -70,54 +65,7 @@ public class ValtechBiblioActivity extends Activity
     					.show();
     			}
     		});
-    		//EditText filterEditText = (EditText) findViewById(R.id.searchFilter);
-    		/*filterEditText.addTextChangedListener(new TextWatcher() {
-    		    public void onTextChanged(CharSequence s, int start, int before,
-    		      int count) {
-    		      adapter.getFilter().filter(s.toString());
-    		    }
-    		     public void beforeTextChanged(CharSequence s, int start, int count,
-    		      int after) {
-    		     }
-    		 
-    		     public void afterTextChanged(Editable s) {
-    		     }
-    		});*/
     }
-    
-    /*class RetreiveImageTask extends AsyncTask<String, Void, Bitmap> {
-
-        private Exception exception;
-
-        protected Bitmap doInBackground(String... urls) {
-        	Bitmap bm = null;  
-        	try 
-        	{ 
-                 URL aURL = new URL(urls[0]); 
-                 URLConnection conn = aURL.openConnection(); 
-                 conn.connect(); 
-                 InputStream is = conn.getInputStream(); 
-                 BufferedInputStream bis = new BufferedInputStream(is); 
-                 bm = BitmapFactory.decodeStream(bis); 
-                 bis.close(); 
-                 is.close(); 
-            } catch (IOException e) { 
-                
-            }
-    		return bm; 
-        }
-
-        protected void onPostExecute(Bitmap myImage) {
-            // TODO: check this.exception 
-            // TODO: do something with the feed
-        	image = myImage;
-        }
-
-    	
-     }*/
-    
-    
-    
     
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         protected Bitmap doInBackground(String... urls) {
