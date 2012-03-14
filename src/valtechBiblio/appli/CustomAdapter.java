@@ -55,7 +55,7 @@ public class CustomAdapter extends ArrayAdapter<Book>
 		textViewCancel.setText("Nombre d'auteurs : " + Integer.toString(currentBook.getAuthor().size()));
 		
 		//Uri uri = Uri.parse("http://icons-search.com/img/icons-land/IconsLandVistaHalloweenEmoticonsDemo.zip/IconsLandVistaHalloweenEmoticonsDemo-PNG-16x16-Wink.png-16x16.png");
-		imageView.setImageBitmap(image);
+		imageView.setImageBitmap(currentBook.getPicture());
 		
 		//reservedImageContainer.setBackgroundDrawable(background);
 		if(!currentBook.isReserved())

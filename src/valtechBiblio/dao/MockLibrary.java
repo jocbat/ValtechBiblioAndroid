@@ -18,6 +18,7 @@ public class MockLibrary implements ILibrary
 		book.setNumberOfPages(234);
 		book.setTitle("Ma vie mon oeuvre");
 		book.setReserved(false);
+		book.setUrlPicture("http://ecx.images-amazon.com/images/I/51PpZM%2BcuXL._SL160_PIsitb-sticker-arrow-dp,TopRight,12,-18_SH30_OU01_AA160_.jpg");
 		
 		Book book2 = new Book();
 		ArrayList<String> authors2 = new ArrayList<String>();
@@ -26,6 +27,7 @@ public class MockLibrary implements ILibrary
 		book2.setNumberOfPages(11);
 		book2.setTitle("HTML5 c'est de la balle !");
 		book2.setReserved(true);
+		book2.setUrlPicture("http://www.critique-livre.fr/wp-content/uploads/le_rouge_et_le_noir.jpg");
 		
 		Book book3 = new Book();
 		ArrayList<String> authors3 = new ArrayList<String>();
@@ -34,6 +36,7 @@ public class MockLibrary implements ILibrary
 		book3.setNumberOfPages(987);
 		book3.setTitle("J'ai acheté une radio FM");
 		book3.setReserved(false);
+		book3.setUrlPicture("http://livre-html5.com/img/livre-html5.jpg");
 		
 		books.add(book);
 		books.add(book2);

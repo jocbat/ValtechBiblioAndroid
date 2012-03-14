@@ -20,6 +20,9 @@ public class Book
 	// les différents domaines auxquels appartient le livre
 	private List<String> fields;
 	
+	// url pour télécharger l'image de la couverture
+	private String urlPicture;
+	
 	// image de la couverture du livre
 	private Bitmap picture;
 	
@@ -62,6 +65,12 @@ public class Book
 	}
 	public void setReserved(boolean isReserved) {
 		this.isReserved = isReserved;
+	}
+	public String getUrlPicture() {
+		return urlPicture;
+	}
+	public void setUrlPicture(String urlPicture) {
+		this.urlPicture = urlPicture;
 	}
 	
 	
