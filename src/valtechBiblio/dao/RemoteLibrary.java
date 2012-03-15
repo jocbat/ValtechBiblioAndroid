@@ -40,7 +40,7 @@ public class RemoteLibrary implements ILibrary
 		List<Book> tempBooks = mockLibrary.findAllBooks();
 		HttpClient httpclient = new DefaultHttpClient();
 		
-		HttpGet httpget = new HttpGet("http://localhost:5984/"); 
+		HttpGet httpget = new HttpGet("http://10.0.2.2:5984/test"); 
 		//HttpGet httpget = new HttpGet("http://www.google.fr");
 		
 		HttpResponse response;
