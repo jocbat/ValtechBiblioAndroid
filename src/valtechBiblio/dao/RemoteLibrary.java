@@ -40,8 +40,9 @@ public class RemoteLibrary implements ILibrary
 		List<Book> tempBooks = mockLibrary.findAllBooks();
 		HttpClient httpclient = new DefaultHttpClient();
 		
-		HttpGet httpget = new HttpGet("http://10.0.2.2:5984/test"); 
+		HttpGet httpget = new HttpGet("http://10.0.2.2:5984/test/_design/articles/_view/titles"); 
 		//HttpGet httpget = new HttpGet("http://www.google.fr");
+		
 		
 		HttpResponse response;
         try {
@@ -63,20 +64,28 @@ public class RemoteLibrary implements ILibrary
  
                 // A Simple JSONObject Creation
                 JSONObject json=new JSONObject(result);
-                Log.i("Praeda","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
+                //Log.i("Praeda","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
  
                 // A Simple JSONObject Parsing
                 JSONArray nameArray=json.names();
                 JSONArray valArray=json.toJSONArray(nameArray);
+                String remoteBooks = "";
                 for(int i=0;i<valArray.length();i++)
                 {
-                    Log.i("Praeda","<jsonname"+i+">\n"+nameArray.getString(i)+"\n</jsonname"+i+">\n"
-                            +"<jsonvalue"+i+">\n"+valArray.getString(i)+"\n</jsonvalue"+i+">");
+                    if("rows".equals(nameArray.getString(i)))
+                    {
+                    	remoteBooks = valArray.getString(i);
+                    }
+                	/*Log.i("Praeda","<jsonname"+i+">\n"+nameArray.getString(i)+"\n</jsonname"+i+">\n"
+                            +"<jsonvalue"+i+">\n"+valArray.getString(i)+"\n</jsonvalue"+i+">");*/
                 }
- 
+                
+                JSONObject jsonRemoteBooks =new JSONObject(remoteBooks);
+                JSONArray nameArrayRemoteBooks = jsonRemoteBooks.names();
+                JSONArray valArrayRemoteBooks = jsonRemoteBooks.toJSONArray(nameArray);
                 // A Simple JSONObject Value Pushing
-                json.put("sample key", "sample value");
-                Log.i("Praeda","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
+                //json.put("sample key", "sample value");
+                //Log.i("Praeda","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
  
                 // Closing the input stream will trigger connection release
                 instream.close();
