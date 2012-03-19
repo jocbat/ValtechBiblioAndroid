@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -15,6 +16,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,8 +40,12 @@ public class RemoteLibrary implements ILibrary
 	
 	public List<Book> findAllBooks() 
 	{
-		List<Book> tempBooks = mockLibrary.findAllBooks();
+		List<Book> tempBooks = new ArrayList<Book>();
+		
 		HttpClient httpclient = new DefaultHttpClient();
+		HttpParams params = httpclient.getParams();
+	    HttpConnectionParams.setConnectionTimeout(params, 1000);
+	    HttpConnectionParams.setSoTimeout(params, 1000);
 		
 		HttpGet httpget = new HttpGet("http://10.0.2.2:5984/test/_design/articles/_view/titles"); 
 		//HttpGet httpget = new HttpGet("http://www.google.fr");
@@ -64,10 +71,26 @@ public class RemoteLibrary implements ILibrary
  
                 // A Simple JSONObject Creation
                 JSONObject json=new JSONObject(result);
+                
+                JSONArray the_json_array = json.getJSONArray("rows");
+                int size = the_json_array.length();
+                
+                for (int i = 0; i < size; i++) {
+                    JSONObject another_json_object = the_json_array.getJSONObject(i);
+                        
+                    JSONObject line = (JSONObject) another_json_object.get("value");
+                    String title = line.getString("title");
+                    String urlPicture = line.getString("urlpicture");
+                    Book book = new Book();
+                    book.setTitle(title);
+                    book.setUrlPicture(urlPicture);
+                    tempBooks.add(book);
+                }
+                
                 //Log.i("Praeda","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
  
                 // A Simple JSONObject Parsing
-                JSONArray nameArray=json.names();
+                /*JSONArray nameArray=json.names();
                 JSONArray valArray=json.toJSONArray(nameArray);
                 String remoteBooks = "";
                 for(int i=0;i<valArray.length();i++)
@@ -77,12 +100,12 @@ public class RemoteLibrary implements ILibrary
                     	remoteBooks = valArray.getString(i);
                     }
                 	/*Log.i("Praeda","<jsonname"+i+">\n"+nameArray.getString(i)+"\n</jsonname"+i+">\n"
-                            +"<jsonvalue"+i+">\n"+valArray.getString(i)+"\n</jsonvalue"+i+">");*/
+                            +"<jsonvalue"+i+">\n"+valArray.getString(i)+"\n</jsonvalue"+i+">");
                 }
                 
                 JSONObject jsonRemoteBooks =new JSONObject(remoteBooks);
                 JSONArray nameArrayRemoteBooks = jsonRemoteBooks.names();
-                JSONArray valArrayRemoteBooks = jsonRemoteBooks.toJSONArray(nameArray);
+                JSONArray valArrayRemoteBooks = jsonRemoteBooks.toJSONArray(nameArray);*/
                 // A Simple JSONObject Value Pushing
                 //json.put("sample key", "sample value");
                 //Log.i("Praeda","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
@@ -104,7 +127,7 @@ public class RemoteLibrary implements ILibrary
         }
 		
 		
-		
+		//String url = mockLibrary.findAllBooks().get(0).getUrlPicture();
 		for(Book book : tempBooks)
 		{
 			book.setPicture(downloadFile(book.getUrlPicture()));
@@ -147,6 +170,7 @@ public class RemoteLibrary implements ILibrary
         } catch (MalformedURLException e) {
              // TODO Auto-generated catch block
              e.printStackTrace();
+             return bmImg;
         }
         try 
         {
